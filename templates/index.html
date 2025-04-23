@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Search Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Search Products</h2>
+    <form method="POST" action="/">
+        <input type="text" name="keyword" class="search-box" placeholder="Enter a keyword to search..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="results">
+        {% if search_results %}
+            <h3>Search Results:</h3>
+            {% for result in search_results %}
+                <div class="result-item">
+                    <strong>{{ result[1] }}</strong><br>
+                    {{ result[2] }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No results found</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
