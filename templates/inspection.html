@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violation Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='inspection.css') }}">
+</head>
+<body>
+    <div class="violations">
+        {% if inspection %}
+            <h2>{{ inspection[1] }} Grade: {{ inspection[3] }}</h2>
+
+            <h3>Violations</h3>
+            {% if violations %}
+                    {% for violation in violations %}
+                        <div class="violation">
+                            <p>Description: {{ violation[2] }}</p>
+                            <p>Points: {{ violation[4] }}</p>
+                        </div>
+                    {% endfor %}
+            {% else %}
+                <p>No violations found</p>
+            {% endif %}
+
+            <a href="{{ url_for('index') }}">
+                <button type="button">Home</button>
+            </a>
+            <a href="{{ url_for('facility', facility_id=inspection[8]) }}">
+                <button type="button">Inspection List</button>
+            </a>
+        {% else %}
+            <p>No inspection found</p>
+        {% endif %}
+    </div>
+</body>
+</html>

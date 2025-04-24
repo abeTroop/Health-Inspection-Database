@@ -3,46 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keyword Search Demo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-        }
-        .search-box {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .results {
-            margin-top: 20px;
-        }
-        .result-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .result-item:last-child {
-            border-bottom: none;
-        }
-    </style>
+    <title>Health Inspection Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
 
 <div class="container">
-    <h2>Search Products</h2>
+    <h2>Search Restaurants</h2>
     <form method="POST" action="/">
-        <input type="text" name="keyword" class="search-box" placeholder="Enter a keyword to search..." required>
+        <input type="text" name="keyword" class="search-box" placeholder="Search for restaurant..." required>
         <button type="submit">Search</button>
     </form>
 
@@ -51,8 +20,10 @@
             <h3>Search Results:</h3>
             {% for result in search_results %}
                 <div class="result-item">
-                    <strong>{{ result[1] }}</strong><br>
-                    {{ result[2] }}
+                    <a href="{{ url_for('facility', facility_id=result[0]) }}">
+                        <strong>{{ result[1] }}</strong><br>
+                        <p>{{ result[2] }}, {{ result[3] }}, {{ result[4] }}, {{ result[5] }}</p>
+                    </a>
                 </div>
             {% endfor %}
         {% else %}
