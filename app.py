@@ -24,7 +24,7 @@ def index():
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        if not keyword and not address:
+        if not keyword and not address and not zip and not city and not state:
             # No input provided — skip DB query
             return render_template("index.html", search_results=[])
 
@@ -40,7 +40,7 @@ def index():
             conditions.append("to_tsvector('english', facility_address) @@ plainto_tsquery('english', %s)")
             params.append(address)
         if zip:
-            conditions.append("facility_zip = %s")
+            conditions.append("to_tsvector('english', facility_zip) @@ plainto_tsquery('english', %s)")
             params.append(zip)
         if city:
             conditions.append("to_tsvector('english', facility_city) @@ plainto_tsquery('english', %s)")
@@ -49,20 +49,10 @@ def index():
             conditions.append("to_tsvector('english', facility_state) @@ plainto_tsquery('english', %s)")
             params.append(state)
 
-        query += " OR ".join(conditions)
+        query += " AND ".join(conditions)
 
         cursor.execute(query, tuple(params))
 
-        # cursor.execute("""
-        #     SELECT * FROM facility
-        #     WHERE 
-        #                (to_tsvector('english', facility_name) @@ plainto_tsquery('english', %s))
-        #                OR
-        #                (to_tsvector('english', facility_address) @@ plainto_tsquery('english', %s));        
-        # """, (keyword,))
-
-
-        
         search_results = cursor.fetchall()
         cursor.close()
         conn.close()
