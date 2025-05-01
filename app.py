@@ -5,7 +5,8 @@ app = Flask(__name__)
 
 def get_db_connection():
     conn = psycopg2.connect(
-        dbname="CSE412_Project", user="abrahamtroop", host="localhost", port="8888"
+        dbname="cse412_project", user="postgres", password="temp", host="localhost", port="5432"
+        # insert password
     )
     return conn
 
@@ -15,13 +16,52 @@ def index():
     search_results = []
     if request.method == "POST":
         keyword = request.form["keyword"]
+        address = request.form["address"]
+        zip = request.form["zip"]
+        city = request.form["city"]
+        state = request.form["state"]
+
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        cursor.execute("""
-            SELECT * FROM facility
-            WHERE to_tsvector('english', facility_name) @@ plainto_tsquery('english', %s);
-        """, (keyword,))
+        if not keyword and not address:
+            # No input provided — skip DB query
+            return render_template("index.html", search_results=[])
+
+
+        query = "SELECT * FROM facility WHERE "
+        params = []
+
+        conditions = []
+        if keyword:
+            conditions.append("to_tsvector('english', facility_name) @@ plainto_tsquery('english', %s)")
+            params.append(keyword)
+        if address:
+            conditions.append("to_tsvector('english', facility_address) @@ plainto_tsquery('english', %s)")
+            params.append(address)
+        if zip:
+            conditions.append("facility_zip = %s")
+            params.append(zip)
+        if city:
+            conditions.append("to_tsvector('english', facility_city) @@ plainto_tsquery('english', %s)")
+            params.append(city)
+        if state:
+            conditions.append("to_tsvector('english', facility_state) @@ plainto_tsquery('english', %s)")
+            params.append(state)
+
+        query += " OR ".join(conditions)
+
+        cursor.execute(query, tuple(params))
+
+        # cursor.execute("""
+        #     SELECT * FROM facility
+        #     WHERE 
+        #                (to_tsvector('english', facility_name) @@ plainto_tsquery('english', %s))
+        #                OR
+        #                (to_tsvector('english', facility_address) @@ plainto_tsquery('english', %s));        
+        # """, (keyword,))
+
+
         
         search_results = cursor.fetchall()
         cursor.close()
