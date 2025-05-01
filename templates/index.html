@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Inspection Database</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='map.js') }}"></script>
 </head>
 <body>
 
@@ -22,7 +23,7 @@
                 <div class="result-item">
                     <a href="{{ url_for('facility', facility_id=result[0]) }}">
                         <strong>{{ result[1] }}</strong><br>
-                        <p>{{ result[2] }}, {{ result[3] }}, {{ result[4] }}, {{ result[5] }}</p>
+                        <p class="full-address">{{ result[2] }}, {{ result[3] }}, {{ result[4] }}, {{ result[5] }}</p>
                     </a>
                 </div>
             {% endfor %}
@@ -32,5 +33,11 @@
     </div>
 </div>
 
+<div id="map"></div>
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&v=weekly"
+    defer
+></script>
 </body>
 </html>
