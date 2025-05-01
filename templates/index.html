@@ -12,10 +12,16 @@
     <h2>Search Restaurants</h2>
     <form method="POST" action="/">
         <input type="text" name="keyword" class="search-box" placeholder="Search by restaurant name..." >
-        <input type="text" name="address" class="search-box" placeholder="Search by address..." >
-        <input type="text" name="zip" class="search-box" placeholder="Search by zip code..." >
-        <input type="text" name="city" class="search-box" placeholder="Search by city..." >
-        <input type="text" name="state" class="search-box" placeholder="Search by state..." >
+        <button type="button" id="advancedSearchButton">Advanced Search</button>
+
+        <!-- advanced search section, is hidden until button is pressed  -->
+        <div id="advanced-search" style="display: none; margin-top: 10px;">
+            <input type="text" name="address" class="search-box" placeholder="Search by address..." >
+            <input type="text" name="zip" class="search-box" placeholder="Search by zip code..." >
+            <input type="text" name="city" class="search-box" placeholder="Search by city..." >
+            <input type="text" name="state" class="search-box" placeholder="Search by state..." >
+        </div>
+
         <button type="submit">Search</button>
     </form>
 
@@ -35,6 +41,9 @@
         {% endif %}
     </div>
 </div>
+
+<!-- js for advanced search -->
+<script src="{{ url_for('static', filename='index.js') }}" defer></script>
 
 </body>
 </html>

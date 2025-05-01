@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 def get_db_connection():
     conn = psycopg2.connect(
+        #fill in all the fields to match with your database, including password
         dbname="cse412_project", user="postgres", password="temp", host="localhost", port="5432"
-        # insert password
     )
     return conn
 
@@ -25,14 +25,13 @@ def index():
         cursor = conn.cursor()
         
         if not keyword and not address and not zip and not city and not state:
-            # No input provided — skip DB query
             return render_template("index.html", search_results=[])
 
-
+       #adds input to each filled in field to the query
         query = "SELECT * FROM facility WHERE "
         params = []
-
         conditions = []
+
         if keyword:
             conditions.append("to_tsvector('english', facility_name) @@ plainto_tsquery('english', %s)")
             params.append(keyword)
@@ -52,8 +51,8 @@ def index():
         query += " AND ".join(conditions)
 
         cursor.execute(query, tuple(params))
-
         search_results = cursor.fetchall()
+
         cursor.close()
         conn.close()
     
