@@ -3,52 +3,94 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
+    color: #333;
 }
+
 .container {
     max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 50px auto;
+    padding: 30px 20px;
     background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
 }
-.search-box {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
+
+h2, h3 {
+    color: #222;
     margin-bottom: 20px;
 }
-.results {
-    margin-top: 20px;
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
 }
-.result-item {
+
+input[type="text"], .search-box {
+    flex: 1;
     padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.results {
+    margin-top: 30px;
+}
+
+.result-item {
+    padding: 12px 0;
     border-bottom: 1px solid #ddd;
 }
+
 .result-item:last-child {
     border-bottom: none;
+}
+
+.result-item a {
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.result-item a:hover {
+    text-decoration: underline;
 }
 
 #map {
     height: 500px;
     width: 75%;
-    margin-top: 30px;
-    margin: 30px auto 0 auto;
+    margin: 40px auto 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 
-.restaurant-info div {
+.restaurant-info {
+    margin-top: 10px;
     font-size: 14px;
+    line-height: 1.6;
 }
 
 .restaurant-info a {
+    color: #007bff;
     text-decoration: none;
-}
-
-.restaurant-info a:visited {
-    color: blue;
 }
 
 .restaurant-info a:hover {
     text-decoration: underline;
 }
-  

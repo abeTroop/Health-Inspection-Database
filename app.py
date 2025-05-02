@@ -6,7 +6,7 @@ app = Flask(__name__)
 def get_db_connection():
     conn = psycopg2.connect(
         #fill in all the fields to match with your database, including password
-        dbname="cse412_project", user="postgres", password="temp", host="localhost", port="5432"
+        dbname="CSE412_Project", user="postgres", password="temp", host="localhost", port="5432"
     )
     return conn
 
@@ -84,9 +84,10 @@ def facility(facility_id):
     return render_template("facility.html", facility=facility, inspections=inspections)
 
 # Violations Page
-@app.route("/inspection/<serial_number>", methods=["GET"])
+@app.route("/inspection/<serial_number>")
 def inspection(serial_number):
-    violations = []
+    facility_id = request.args.get("facility_id")
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
@@ -94,19 +95,19 @@ def inspection(serial_number):
         SELECT * FROM inspection
         WHERE serial_number = %s;
     """, (serial_number,))
-
     inspection = cursor.fetchone()
 
     cursor.execute("""
         SELECT * FROM violation 
         WHERE serial_number = %s;
     """, (serial_number,))
-
     violations = cursor.fetchall()
+
     cursor.close()
     conn.close()
 
-    return render_template("inspection.html", inspection=inspection, violations=violations)
+    return render_template("inspection.html", inspection=inspection, violations=violations, facility_id=facility_id)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

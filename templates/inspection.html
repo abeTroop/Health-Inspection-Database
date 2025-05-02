@@ -2,36 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Violation Information</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='inspection.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="violations">
-        {% if inspection %}
-            <h2>{{ inspection[1] }} Grade: {{ inspection[3] }}</h2>
+    <div class="container">
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <a href="/" class="nav-button">Home</a>
+            <a href="{{ url_for('facility', facility_id=facility_id) }}" class="nav-button">Back to Inspections</a>
+        </div>
 
-            <h3>Violations</h3>
-            {% if violations %}
-                    {% for violation in violations %}
-                        <div class="violation">
-                            <p>Description: {{ violation[2] }}</p>
-                            <p>Points: {{ violation[4] }}</p>
-                        </div>
-                    {% endfor %}
+        <h2>Inspection: {{ inspection[0] }}</h2>
+
+        <!-- use strong to bold -->
+        <div class="restaurant-info">
+            <div><strong>Date:</strong> {{ inspection[1] }}</div>
+            <div><strong>Facility ID:</strong> {{ inspection[2] }}</div>
+            <div><strong>Type:</strong> {{ inspection[3] }}</div>
+            <div><strong>Score:</strong> {{ inspection[4] }}</div>
+            <div><strong>Status:</strong> {{ inspection[5] }}</div>
+        </div>
+
+        <!-- vioklations tab -->
+        <h3>Violations</h3>
+        <div class="results">
+            {% for violation in violations %}
+                <div class="result-item">
+                    <strong>Code:</strong> {{ violation[2] }}<br>
+                    <strong>Description:</strong> {{ violation[3] }}
+                </div>
             {% else %}
                 <p>No violations found</p>
-            {% endif %}
-
-            <a href="{{ url_for('index') }}">
-                <button type="button">Home</button>
-            </a>
-            <a href="{{ url_for('facility', facility_id=inspection[8]) }}">
-                <button type="button">Inspection List</button>
-            </a>
-        {% else %}
-            <p>No inspection found</p>
-        {% endif %}
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
