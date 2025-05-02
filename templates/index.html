@@ -25,6 +25,9 @@
 
         <button type="submit">Search</button>
     </form>
+    <div style="text-align: right; margin: 10px;">
+        <a href="{{ url_for('login') }}"><button>Inspector Login</button></a>
+    </div>
 
     <div class="results">
         {% if search_results %}
