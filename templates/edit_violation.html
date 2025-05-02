@@ -1,0 +1,19 @@
+<h2>Edit Violation</h2>
+<form method="post">
+  <label>Violation Code:</label>
+  <input type="text" name="violation_code" value="{{ violation[1] }}" maxlength="4" required><br>
+
+  <label>Description:</label><br>
+  <textarea name="violation_description" maxlength="150" required>{{ violation[2] }}</textarea><br>
+
+  <label>Status:</label>
+  <input type="text" name="violation_status" value="{{ violation[3] }}" maxlength="50" required><br>
+
+  <label>Points:</label>
+  <input type="number" name="points" value="{{ violation[4] }}" required><br>
+
+  <button type="submit">Update Violation</button>
+</form>
+<a href="{{ url_for('dashboard') }}">
+    <button type="button">Dashboard</button>
+</a>
