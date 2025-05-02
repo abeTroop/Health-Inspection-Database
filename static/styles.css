@@ -28,3 +28,27 @@ body {
 .result-item:last-child {
     border-bottom: none;
 }
+
+#map {
+    height: 500px;
+    width: 75%;
+    margin-top: 30px;
+    margin: 30px auto 0 auto;
+}
+
+.restaurant-info div {
+    font-size: 14px;
+}
+
+.restaurant-info a {
+    text-decoration: none;
+}
+
+.restaurant-info a:visited {
+    color: blue;
+}
+
+.restaurant-info a:hover {
+    text-decoration: underline;
+}
+  
