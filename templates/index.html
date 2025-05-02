@@ -18,11 +18,16 @@
 
     <div class="results">
         {% if search_results %}
-            <h3>Search Results:</h3>
             {% for result in search_results %}
-                <div class="result-item">
+                <!-- 
+                    DEBUG NOTE:
+                    If you don't have a Google Maps API key, you can remove the attribute style="display: none;"
+                    from the div below.
+                -->
+                <div class="result-item" style="display: none;">
                     <a href="{{ url_for('facility', facility_id=result[0]) }}">
-                        <strong>{{ result[1] }}</strong><br>
+                        <p class="facility-id">{{ result[0] }}</p>
+                        <p class="facility-name">{{ result[1] }}</p>
                         <p class="full-address">{{ result[2] }}, {{ result[3] }}, {{ result[4] }}, {{ result[5] }}</p>
                     </a>
                 </div>
