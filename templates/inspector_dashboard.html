@@ -1,71 +1,73 @@
 <!DOCTYPE html>
-<html>
-<head><title>Inspector Dashboard</title></head>
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul>
-    {% for message in messages %}
-      <li style="color: red;">{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inspector Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 <body>
-    <h2>Welcome Inspector {{ employee_id }}</h2>
-    <p><a href="{{ url_for('logout') }}">Logout</a></p>
-
-    <!-- Get Serial Number -->
-    <form method="post">
-        <label for="serial_number">Enter Inspection Serial Number:</label>
-        <input type="text" id="serial_number" name="serial_number" required>
-        <button type="submit">Submit</button>
-    </form>
-
-    <!--If Serial Number exists, display add, update, and delete section-->
-    {% if selected_serial %}
-    <p><strong>Selected Serial Number:</strong> {{ selected_serial }}</p>
-
-    <ul>
-      <li><a href="{{ url_for('add_violation', serial_number=selected_serial) }}">Add Violation</a></li>
-    </ul>
-
-    <!--Table of Violations for Inspection-->
-    {% if violations %}
-    <h3>Violations for Serial Number {{ selected_serial }}</h3>
-    <table border="1" cellpadding="5">
-        <thead>
-            <tr>
-                <th>Row ID</th>
-                <th>Code</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Points</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!--Violation Content with edit and delete button-->
-            {% for v in violations %}
-            <tr>
-                <td>{{ v[0] }}</td>
-                <td>{{ v[1] }}</td>
-                <td>{{ v[2] }}</td>
-                <td>{{ v[3] }}</td>
-                <td>{{ v[4] }}</td>
-                <td>
-                <a href="{{ url_for('edit_violation', row_id=v[0]) }}">Edit</a>
-                |
-                <form action="{{ url_for('delete_violation', row_id=v[0]) }}" method="post" style="display:inline;" onsubmit="return confirm('Delete this violation?');">
-                    <button type="submit">Delete</button>
-                </form>
-                </td>
-            </tr>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
             {% endfor %}
-        </tbody>
-    </table>
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <h2>Welcome Inspector {{ employee_id }}</h2>
+        <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+        <form method="post">
+            <label for="serial_number">Enter Inspection Serial Number:</label>
+            <input type="text" id="serial_number" name="serial_number" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if selected_serial %}
+        <p><strong>Selected Serial Number:</strong> {{ selected_serial }}</p>
+
+        <ul>
+            <li><a href="{{ url_for('add_violation', serial_number=selected_serial) }}">Add Violation</a></li>
+        </ul>
+
+        {% if violations %}
+        <h3>Violations for Serial Number {{ selected_serial }}</h3>
+        <table border="1" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Row ID</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Points</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for v in violations %}
+                <tr>
+                    <td>{{ v[0] }}</td>
+                    <td>{{ v[1] }}</td>
+                    <td>{{ v[2] }}</td>
+                    <td>{{ v[3] }}</td>
+                    <td>{{ v[4] }}</td>
+                    <td>
+                        <a href="{{ url_for('edit_violation', row_id=v[0]) }}">Edit</a> |
+                        <form action="{{ url_for('delete_violation', row_id=v[0]) }}" method="post" style="display:inline;" onsubmit="return confirm('Delete this violation?');">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
         <p>No violations found for this serial number.</p>
         {% endif %}
-    {% endif %}
+        {% endif %}
+    </div>
 </body>
 </html>

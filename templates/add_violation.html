@@ -1,22 +1,44 @@
-<h2>Add Violation for Inspection {{ serial_number }}</h2>
-<form method="post">
-    <label>Serial Number:</label>
-    <input type="text" name="serial_number" maxlength="9" required><br>
-
-    <label>Violation Code:</label>
-    <input type="text" name="violation_code" maxlength="4" required><br>
-
-    <label>Description:</label><br>
-    <textarea name="violation_description" maxlength="150" required></textarea><br>
-
-    <label>Status:</label>
-    <input type="text" name="violation_status" maxlength="50" required><br>
-
-    <label>Points:</label>
-    <input type="number" name="points" required><br>
-
-    <button type="submit">Add Violation</button>
-</form>
-<a href="{{ url_for('dashboard') }}">
-    <button type="button">Dashboard</button>
-</a>
+<!DOCTYPE html>
+<head>
+    <title>Add Violation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Add Violation for Inspection {{ serial_number }}</h2>
+    <form method="post">
+        <div>
+            <label>Serial Number:</label><br>
+            <input class="search-box" type="text" name="serial_number" maxlength="9" required>
+        </div>
+    
+        <div>
+            <label>Violation Code:</label><br>
+            <input class="search-box" type="text" name="violation_code" maxlength="4" required>
+        </div>
+    
+        <div>
+            <label>Description:</label><br>
+            <textarea class="search-box" name="violation_description" maxlength="150" required></textarea>
+        </div>
+    
+        <div>
+            <label>Status:</label><br>
+            <input class="search-box" type="text" name="violation_status" maxlength="50" required>
+        </div>
+    
+        <div>
+            <label>Points:</label><br>
+            <input class="search-box" type="number" name="points" required>
+        </div>
+    
+        <button type="submit">Add Violation</button>
+    </form>
+    
+    <a href="{{ url_for('dashboard') }}">
+        <button type="button">Dashboard</button>
+    </a>
+    
+</div>
+</body>
+</html>
