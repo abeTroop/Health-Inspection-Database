@@ -1,19 +1,39 @@
-<h2>Edit Violation</h2>
-<form method="post">
-  <label>Violation Code:</label>
-  <input type="text" name="violation_code" value="{{ violation[1] }}" maxlength="4" required><br>
+<!DOCTYPE html>
+<head>
+    <title>Edit Violation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Edit Violation</h2>
+    <form method="post">
+        <div>
+            <label>Violation Code:</label><br>
+            <input class="search-box" type="text" name="violation_code" value="{{ violation[1] }}" maxlength="4" required>
+        </div>
 
-  <label>Description:</label><br>
-  <textarea name="violation_description" maxlength="150" required>{{ violation[2] }}</textarea><br>
+        <div>
+            <label>Description:</label><br>
+            <textarea class="search-box" name="violation_description" maxlength="150" required>{{ violation[2] }}</textarea>
+        </div>
 
-  <label>Status:</label>
-  <input type="text" name="violation_status" value="{{ violation[3] }}" maxlength="50" required><br>
+        <div>
+            <label>Status:</label><br>
+            <input class="search-box" type="text" name="violation_status" value="{{ violation[3] }}" maxlength="50" required>
+        </div>
 
-  <label>Points:</label>
-  <input type="number" name="points" value="{{ violation[4] }}" required><br>
+        <div>
+            <label>Points:</label><br>
+            <input class="search-box" type="number" name="points" value="{{ violation[4] }}" required>
+        </div>
 
-  <button type="submit">Update Violation</button>
-</form>
-<a href="{{ url_for('dashboard') }}">
-    <button type="button">Dashboard</button>
-</a>
+        <button type="submit">Update Violation</button>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">
+        <button type="button">Dashboard</button>
+    </a>
+</div>
+</body>
+</html>
+

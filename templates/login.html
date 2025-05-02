@@ -1,20 +1,27 @@
+
 <!DOCTYPE html>
-<html>
-<head><title>Inspector Login</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inspector Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
 <body>
-    <h2>Inspector Login</h2>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <p style="color:red;">{{ messages[0] }}</p>
-        {% endif %}
-    {% endwith %}
-    <form method="post">
-        <label for="employee_id">Employee ID:</label>
-        <input type="text" name="employee_id" required>
-        <button type="submit">Login</button>
-        <a href="{{ url_for('index') }}">
-            <button type="button">Home</button>
-        </a>
-    </form>
+    <div class="container">
+        <h2>Inspector Login</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <p style="color:red;">{{ messages[0] }}</p>
+            {% endif %}
+        {% endwith %}
+        <form method="post">
+            <label for="employee_id">Employee ID:</label>
+            <input type="text" name="employee_id" required>
+            <button type="submit">Login</button>
+            <a href="{{ url_for('index') }}">
+                <button type="button">Home</button>
+            </a>
+        </form>
+    </div>
 </body>
 </html>
